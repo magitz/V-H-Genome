@@ -42,4 +42,5 @@ args = parser.parse_args()
 for seq_record in SeqIO.parse(args.file, "genbank"):
     CDS_count = index_genbank_features(seq_record, "CDS", "gene")
     print(seq_record.id, len(seq_record.seq), CDS_count )
+    break #Let's process one for testing.
 
