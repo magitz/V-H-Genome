@@ -92,13 +92,14 @@ for Line in IN:
     if count == 0:
         Line = Line.strip('\n')
         Line_bits=re.split('\t', Line)
-        Header = (Line_bits [0:3])
-        Header.append('genome_size')
-        Header.append('Gene_count')
-        Header.append(Line_bits[4:])
-
-        for col in Header: 
-            OUT.write(str(col))
+        
+        for col in range(len(Line_bits)): 
+            if col == 3:
+                Header=col + "\tgegenome_size\tGene_count\t"
+                OUT.write(Header)
+            else
+                Header=col + "\t"
+                OUT.write(Header)
         OUT.write("\n")
         count+=1
     
@@ -108,25 +109,32 @@ for Line in IN:
         refseq_id = Line_bits[3]
         if len(refseq_id) == 1:
             # If there is only one refseq genome, use its data
-            Outline = (Line_bits [0:3])
-            Outline.append(Virus_data[Line_bits[3]][0])
-            Outline.append(Virus_data[Line_bits[3]][1])
-            Outline.append(Line_bits[3:])
-
-            for col in Outline:
-                OUT.write(str(col))
-            OUT.write("\n")
-
+           for col in range(len(Line_bits)): 
+            if col == 3:
+                Header=col + "\t" + Virus_data[Line_bits[3]][0] + "\t" + Virus_data[Line_bits[3]][1] + "\t"
+                OUT.write(Header)
+            else
+                Header=col + "\t"
+                OUT.write(Header)
+        OUT.write("\n")
+           
+           
         else:
             # If there are more than one refseq genomes, need to average the data.
             Genome_array=np.empty([2,0])
             for genome in Line_bits[3]:
                 Genome_array.np.append(Virus_data[Line_bits[3]])
-            Outline = (Line_bits [0:3])
-            Outline.append(np.mean(Genome_array, axis=1))
-            Outline.append(Line_bits[3:])
 
-            for col in Outline:
-                OUT.write(str(col))
-            OUT.write("\n")
 
+
+            for col in range(len(Line_bits)): 
+            if col == 3:
+                means=np.mean(Genome_array, axis=1)
+                Header=col + "\t" + means[0] +"\t" + means[1] "\t"
+                OUT.write(Header)
+            else
+                Header=col + "\t"
+                OUT.write(Header)
+        OUT.write("\n")
+       
+       
