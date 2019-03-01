@@ -6,7 +6,7 @@ from Bio import SeqFeature
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 import os, re, sys
-import datetime
+import time
 import numpy as np
 
 
@@ -72,12 +72,17 @@ except:
 
 
 print("\n")
-print now.strftime("%Y-%m-%d %H:%M\n\n")
+localtime = time.asctime( time.localtime(time.time()) )
+print (localtime)
 
 print("Parsing %s for genome information.\n  This may take a while. You will be notified when done.\n\n" %(args.GenBankFile))
 Virus_data = parse_GenBank_file(args.GenBankFile)
 print("   Done. \n")
-print now.strftime("%H:%M\n\nAdding genome size and gene count to data file.\n\n")
+
+localtime = time.asctime( time.localtime(time.time()) )
+print (localtime)
+
+print ("\n\nAdding genome size and gene count to data file.\n\n")
 
 
 
