@@ -27,8 +27,8 @@ def index_genbank_features(gb_record, feature_type, qualifier) :
                 #are usually several db_xref entries
                 for value in feature.qualifiers[qualifier] :
                     if value in answer :
-                        print "WARNING - Duplicate key %s for %s features %i and %i" \
-                           % (value, feature_type, feature_count[value], index)
+                        print ("WARNING - Duplicate key %s for %s features %i and %i" \
+                           % (value, feature_type, feature_count[value], index))
                     else :
                         feature_count[value] = index
     return feature_count
