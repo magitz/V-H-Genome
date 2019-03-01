@@ -81,13 +81,15 @@ count = 0
 
 for Line in IN:
     if count == 0:
-        Line_bits=Line.strip.split('\t')
+        Line = Line.strip('\n')
+        Line_bits=Line.re.split('\t')
         Header = (Line_bits [0:3],'genome_size','Gene_count',Line_bits[4:])
         OUT.write(Header)
         count+=1
     
     else:
-        Line_bits=Line.strip.split('\t')
+        Line = Line.strip('\n')
+        Line_bits=Line.re.split('\t')
         refseq_id = Line_bits[3]
         if len(refseq_id) == 1:
             # If there is only one refseq genome, use its data
