@@ -111,10 +111,10 @@ for Line in IN:
             # If there is only one refseq genome, use its data
            for col in range(len(Line_bits)): 
             if col == 3:
-                Header=str(col) + "\t" + Virus_data[Line_bits[3]][0] + "\t" + Virus_data[Line_bits[3]][1] + "\t"
+                Header=str(Line_bits[col]) + "\t" + Virus_data[Line_bits[3]][0] + "\t" + Virus_data[Line_bits[3]][1] + "\t"
                 OUT.write(Header)
             else:
-                Header=str(col) + "\t"
+                Header=str(Line_bits[col]) + "\t"
                 OUT.write(Header)
             OUT.write("\n")
            
@@ -122,15 +122,15 @@ for Line in IN:
             # If there are more than one refseq genomes, need to average the data.
             Genome_array=np.empty([2,0])
             for genome in Line_bits[3]:
-                Genome_array.np.append(Virus_data[Line_bits[3]])
+                Genome_array.append(Virus_data[Line_bits[3]])
 
             for col in range(len(Line_bits)): 
                 if col == 3:
                     means=np.mean(Genome_array, axis=1)
-                    Header=str(col) + "\t" + str(means[0]) + "\t" + str(means[1]) + "\t"
+                    Header=str(Line_bits[col]) + "\t" + str(means[0]) + "\t" + str(means[1]) + "\t"
                     OUT.write(Header)
                 else:
-                    Header=str(col) + "\t"
+                    Header=str(Line_bits[col]) + "\t"
                     OUT.write(Header)
             OUT.write("\n")
        
