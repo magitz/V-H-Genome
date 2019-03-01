@@ -21,7 +21,7 @@ import os
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("file", help="Filename of GenBank formatte file to process")
-parser.parse_args()
+args = parser.parse_args()
 
 
 for seq_record in SeqIO.parse(args.file, "genbank"):
