@@ -38,8 +38,8 @@ def index_genbank_features(gb_record, feature_type, qualifier) :
                 #are usually several db_xref entries
                 for value in feature.qualifiers[qualifier] :
                     if value in feature_dict :
-                        print ("WARNING - Duplicate key %s for %s features %i and %i" \
-                           % (value, feature_type, feature_dict[value], index))
+                        #print ("WARNING - Duplicate key %s for %s features %i and %i" \
+                        #   % (value, feature_type, feature_dict[value], index))
                     else :
                         feature_dict[value] = index
     return feature_dict
@@ -56,9 +56,6 @@ def parse_GenBank_file(file):
     return Record_summary
 
 
-Virus_data = parse_GenBank_file(args.GenBankFile)
-
-
 try:
 	IN=open(args.tsvFile, 'r')
 except:
@@ -66,10 +63,17 @@ except:
     exit()
 
 try:
-	OUT=open(args.outputFile, 'r')
+	OUT=open(args.outputFile, 'w')
 except:
-    print("Can't open output file for writing: %s" %(args.tsvFile))
+    print("Can't open output file for writing: %s" %(args.outputFile))
     exit()
+
+
+
+print("Parsing %s for genome information. This may take a while. You will be notified when done.\n\n" %(args.GenBankFile))
+Virus_data = parse_GenBank_file(args.GenBankFile)
+print("Done. \nAdding genome size and gene count to data file.\n\n")
+
 
 
 count = 0
