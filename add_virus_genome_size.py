@@ -68,13 +68,14 @@ except:
 try:
 	OUT=open(args.outputFile, 'r')
 except:
-	print( "Can't open output file for writing: %s" %(args.tsvFile) )
+    print("Can't open output file for writing: %s" %(args.tsvFile))
     exit()
+
 
 count = 0
 
 for Line in IN:
-    if count = 0:
+    if count == 0:
         Line_bits=Line.strip.split('\t')
         Header = (Line_bits [0:3],'genome_size','Gene_count',Line_bits[4:])
         OUT.write(Header)
@@ -83,7 +84,7 @@ for Line in IN:
     else:
         Line_bits=Line.strip.split('\t')
         refseq_id = Line_bits[3]
-        if len(refseq_id) = 1:
+        if len(refseq_id) == 1:
             # If there is only one refseq genome, use its data
             Outline = (Line_bits [0:3],Virus_data[Line_bits[3]][0],Virus_data[Line_bits[3]][1],Line_bits[3:])
             OUT.write(Outline)
