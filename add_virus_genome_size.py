@@ -97,7 +97,7 @@ for Line in IN:
             if col == 3:
                 Header=col + "\tgegenome_size\tGene_count\t"
                 OUT.write(Header)
-            else
+            else:
                 Header=col + "\t"
                 OUT.write(Header)
         OUT.write("\n")
@@ -113,11 +113,10 @@ for Line in IN:
             if col == 3:
                 Header=col + "\t" + Virus_data[Line_bits[3]][0] + "\t" + Virus_data[Line_bits[3]][1] + "\t"
                 OUT.write(Header)
-            else
+            else:
                 Header=col + "\t"
                 OUT.write(Header)
-        OUT.write("\n")
-           
+            OUT.write("\n")
            
         else:
             # If there are more than one refseq genomes, need to average the data.
@@ -125,16 +124,14 @@ for Line in IN:
             for genome in Line_bits[3]:
                 Genome_array.np.append(Virus_data[Line_bits[3]])
 
-
-
             for col in range(len(Line_bits)): 
-            if col == 3:
-                means=np.mean(Genome_array, axis=1)
-                Header=col + "\t" + means[0] +"\t" + means[1] "\t"
-                OUT.write(Header)
-            else
-                Header=col + "\t"
-                OUT.write(Header)
-        OUT.write("\n")
+                if col == 3:
+                    means=np.mean(Genome_array, axis=1)
+                    Header=col + "\t" + means[0] + "\t" + means[1] + "\t"
+                    OUT.write(Header)
+                else:
+                    Header=col + "\t"
+                    OUT.write(Header)
+            OUT.write("\n")
        
-       
+
