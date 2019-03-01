@@ -95,10 +95,10 @@ for Line in IN:
         
         for col in range(len(Line_bits)): 
             if col == 3:
-                Header=col + "\tgegenome_size\tGene_count\t"
+                Header=str(col) + "\tgegenome_size\tGene_count\t"
                 OUT.write(Header)
             else:
-                Header=col + "\t"
+                Header=str(col) + "\t"
                 OUT.write(Header)
         OUT.write("\n")
         count+=1
@@ -111,10 +111,10 @@ for Line in IN:
             # If there is only one refseq genome, use its data
            for col in range(len(Line_bits)): 
             if col == 3:
-                Header=col + "\t" + Virus_data[Line_bits[3]][0] + "\t" + Virus_data[Line_bits[3]][1] + "\t"
+                Header=str(col) + "\t" + Virus_data[Line_bits[3]][0] + "\t" + Virus_data[Line_bits[3]][1] + "\t"
                 OUT.write(Header)
             else:
-                Header=col + "\t"
+                Header=str(col) + "\t"
                 OUT.write(Header)
             OUT.write("\n")
            
@@ -127,10 +127,10 @@ for Line in IN:
             for col in range(len(Line_bits)): 
                 if col == 3:
                     means=np.mean(Genome_array, axis=1)
-                    Header=col + "\t" + means[0] + "\t" + means[1] + "\t"
+                    Header=str(col) + "\t" + str(means[0]) + "\t" + str(means[1]) + "\t"
                     OUT.write(Header)
                 else:
-                    Header=col + "\t"
+                    Header=str(col) + "\t"
                     OUT.write(Header)
             OUT.write("\n")
        
