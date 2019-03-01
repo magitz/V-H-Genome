@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import argparse
-from Bio import Entrez
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio import SeqFeature
@@ -25,4 +24,4 @@ args = parser.parse_args()
 
 
 for seq_record in SeqIO.parse(args.file, "genbank"):
-    print(seq_record.id, len(seq_record.seq) )
+    print(seq_record )
