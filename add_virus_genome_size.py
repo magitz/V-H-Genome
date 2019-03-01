@@ -94,7 +94,7 @@ for Line in IN:
         Line_bits=re.split('\t', Line)
         Header = (Line_bits [0:3],'genome_size','Gene_count',Line_bits[4:])
         for col in Header: 
-            OUT.write(str(col)
+            OUT.write(str(col))
         OUT.write("\n")
         count+=1
     
@@ -106,7 +106,7 @@ for Line in IN:
             # If there is only one refseq genome, use its data
             Outline = (Line_bits [0:3],Virus_data[Line_bits[3]][0],Virus_data[Line_bits[3]][1],Line_bits[3:])
             for col in Outline:
-                OUT.write(str(col)
+                OUT.write(str(col))
             OUT.write("\n")
 
         else:
@@ -116,6 +116,6 @@ for Line in IN:
                 Genome_array.np.append(Virus_data[Line_bits[3]])
             Outline = (Line_bits [0:3],np.mean(Genome_array, axis=1), Line_bits[3:])
             for col in Outline:
-                OUT.write(str(col)
+                OUT.write(str(col))
             OUT.write("\n")
 
