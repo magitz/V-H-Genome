@@ -40,6 +40,7 @@ def index_genbank_features(gb_record, feature_type, qualifier) :
                     if value in feature_dict :
                         #print ("WARNING - Duplicate key %s for %s features %i and %i" \
                         #   % (value, feature_type, feature_dict[value], index))
+                        continue
                     else :
                         feature_dict[value] = index
     return feature_dict
