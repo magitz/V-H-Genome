@@ -6,6 +6,7 @@ from Bio import SeqFeature
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 import os, re, sys
+import datetime
 import numpy as np
 
 
@@ -70,10 +71,13 @@ except:
     exit()
 
 
+print("\n")
+print now.strftime("%Y-%m-%d %H:%M\n\n")
 
-print("Parsing %s for genome information. This may take a while. You will be notified when done.\n\n" %(args.GenBankFile))
+print("Parsing %s for genome information.\n  This may take a while. You will be notified when done.\n\n" %(args.GenBankFile))
 Virus_data = parse_GenBank_file(args.GenBankFile)
-print("Done. \nAdding genome size and gene count to data file.\n\n")
+print("   Done. \n")
+print now.strftime("%H:%M\n\nAdding genome size and gene count to data file.\n\n")
 
 
 
@@ -82,14 +86,14 @@ count = 0
 for Line in IN:
     if count == 0:
         Line = Line.strip('\n')
-        Line_bits=Line.re.split('\t')
+        Line_bits=re.split('\t', Line)
         Header = (Line_bits [0:3],'genome_size','Gene_count',Line_bits[4:])
         OUT.write(Header)
         count+=1
     
     else:
         Line = Line.strip('\n')
-        Line_bits=Line.re.split('\t')
+        Line_bits=re.split('\t', Line)
         refseq_id = Line_bits[3]
         if len(refseq_id) == 1:
             # If there is only one refseq genome, use its data
