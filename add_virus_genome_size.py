@@ -93,12 +93,12 @@ count = 0
 
 for Line in IN:
     if count == 0:
-        Line = Line.strip('\n')
+        Line = Line.strip()
         Line_bits=re.split('\t', Line)
         
         for col in range(len(Line_bits)): 
             if col == 3:
-                Header=str(Line_bits[col]) + "\tgegenome_size\tGene_count\t"
+                Header=str(Line_bits[col]) + "\tGenome_size\tGene_count\t"
                 OUT.write(Header)
             else:
                 Header=str(Line_bits[col]) + "\t"
@@ -107,10 +107,9 @@ for Line in IN:
         count+=1
     
     else:
-        Line = Line.strip('\n')
+        Line = Line.strip()
         Line_bits=re.split('\t', Line)
         refseq_id = re.split(', ',Line_bits[3])
-        
         
         if len(refseq_id) == 1:
             # If there is only one refseq genome, use its data
