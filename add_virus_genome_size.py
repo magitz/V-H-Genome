@@ -54,9 +54,12 @@ def parse_GenBank_file(file):
 
     for seq_record in SeqIO.parse(file, "genbank"):
         CDS_count = len( index_genbank_features(seq_record, "CDS", "gene") )
-        Record_summary[seq_record.id]= (len(seq_record.seq), CDS_count )
+        seq_name=re.split('\.', seq_record.id)[0]
+        Record_summary[seq_name]= (len(seq_record.seq), CDS_count )
 
     return Record_summary
+
+
 
 
 try:
@@ -95,10 +98,10 @@ for Line in IN:
         
         for col in range(len(Line_bits)): 
             if col == 3:
-                Header=str(col) + "\tgegenome_size\tGene_count\t"
+                Header=str(Line_bits[col]) + "\tgegenome_size\tGene_count\t"
                 OUT.write(Header)
             else:
-                Header=str(col) + "\t"
+                Header=str(Line_bits[col]) + "\t"
                 OUT.write(Header)
         OUT.write("\n")
         count+=1
@@ -106,12 +109,15 @@ for Line in IN:
     else:
         Line = Line.strip('\n')
         Line_bits=re.split('\t', Line)
-        refseq_id = Line_bits[3]
+        refseq_id = re.split(', ',Line_bits[3])
+        
+        
         if len(refseq_id) == 1:
             # If there is only one refseq genome, use its data
            for col in range(len(Line_bits)): 
             if col == 3:
-                Header=str(Line_bits[col]) + "\t" + Virus_data[Line_bits[3]][0] + "\t" + Virus_data[Line_bits[3]][1] + "\t"
+                Header=str(Line_bits[col]) + "\t" + str(Virus_data[Line_bits[3]][0]) +\
+                    "\t" + str(Virus_data[Line_bits[3]][1]) + "\t"
                 OUT.write(Header)
             else:
                 Header=str(Line_bits[col]) + "\t"
@@ -120,18 +126,18 @@ for Line in IN:
            
         else:
             # If there are more than one refseq genomes, need to average the data.
-            Genome_array=np.empty([2,0])
-            for genome in Line_bits[3]:
-                Genome_array.append(Virus_data[Line_bits[3]])
-
+            Genome_size=[]
+            Gene_count=[]
+            for genome in refseq_id:
+                Genome_size.append(Virus_data[genome][0])
+                Gene_count.append(Virus_data[genome][1])
+                
             for col in range(len(Line_bits)): 
                 if col == 3:
-                    means=np.mean(Genome_array, axis=1)
-                    Header=str(Line_bits[col]) + "\t" + str(means[0]) + "\t" + str(means[1]) + "\t"
+                    Header=str(Line_bits[col]) + "\t" + str(max(Genome_size)) + "\t" + str(max(Gene_count)) + "\t"
                     OUT.write(Header)
                 else:
                     Header=str(Line_bits[col]) + "\t"
                     OUT.write(Header)
             OUT.write("\n")
        
-
