@@ -20,7 +20,7 @@ import os
 
 import argparse
 parser = argparse.ArgumentParser()
-paerser.add_argument("file", help="Filename of GenBank formatte file to process")
+parser.add_argument("file", help="Filename of GenBank formatte file to process")
 parser.parse_args()
 
 
