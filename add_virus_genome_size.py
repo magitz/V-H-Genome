@@ -12,12 +12,12 @@ import numpy as np
 
 
 # =====================================================
-#  
+#
 #  Matt Gitzendanner
 #  University of Florida
 #  03/01/19
 #
-# Version 1.0: Initial version 
+# Version 1.0: Initial version
 # =====================================================
 
 
@@ -63,13 +63,13 @@ def parse_GenBank_file(file):
 
 
 try:
-	IN=open(args.tsvFile, 'r')
+    IN=open(args.tsvFile, 'r')
 except:
     print( "Can't open tsv file for reading: %s" %(args.tsvFile) )
     exit()
 
 try:
-	OUT=open(args.outputFile, 'w')
+    OUT=open(args.outputFile, 'w')
 except:
     print("Can't open output file for writing: %s" %(args.outputFile))
     exit()
@@ -95,8 +95,8 @@ for Line in IN:
     if count == 0:
         Line = Line.strip()
         Line_bits=re.split('\t', Line)
-        
-        for col in range(len(Line_bits)): 
+
+        for col in range(len(Line_bits)):
             if col == 3:
                 Header=str(Line_bits[col]) + "\tGenome_size\tGene_count\t"
                 OUT.write(Header)
@@ -105,24 +105,24 @@ for Line in IN:
                 OUT.write(Header)
         OUT.write("\n")
         count+=1
-    
+
     else:
         Line = Line.strip()
         Line_bits=re.split('\t', Line)
         refseq_id = re.split(', ',Line_bits[3])
-        
+
         if len(refseq_id) == 1:
             # If there is only one refseq genome, use its data
            for col in range(len(Line_bits)):
                if col == 3:
                    Header=str(Line_bits[col]) + "\t" + str(Virus_data[Line_bits[3]][0]) +\
                         "\t" + str(Virus_data[Line_bits[3]][1]) + "\t"
-                    OUT.write(Header)
-                else:
-                    Header=str(Line_bits[col]) + "\t"
-                OUT.write(Header)
+                   OUT.write(Header)
+               else:
+                   Header=str(Line_bits[col]) + "\t"
+                   OUT.write(Header)
             OUT.write("\n")
-           
+
         else:
             # If there are more than one refseq genomes, need to average the data.
             Genome_size=[]
@@ -130,8 +130,8 @@ for Line in IN:
             for genome in refseq_id:
                 Genome_size.append(Virus_data[genome][0])
                 Gene_count.append(Virus_data[genome][1])
-                
-            for col in range(len(Line_bits)): 
+
+            for col in range(len(Line_bits)):
                 if col == 3:
                     Header=str(Line_bits[col]) + "\t" + str(max(Genome_size)) + "\t" + str(max(Gene_count)) + "\t"
                     OUT.write(Header)
@@ -139,4 +139,3 @@ for Line in IN:
                     Header=str(Line_bits[col]) + "\t"
                     OUT.write(Header)
             OUT.write("\n")
-       
