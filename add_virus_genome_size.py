@@ -53,9 +53,9 @@ def parse_GenBank_file(file):
     Record_summary={}
 
     for seq_record in SeqIO.parse(file, "genbank"):
-        CDS_count = len( index_genbank_features(seq_record, "CDS", "gene") )
+        #CDS_count = len( index_genbank_features(seq_record, "CDS", "gene") )
         seq_name=re.split('\.', seq_record.id)[0]
-        Record_summary[seq_name]= (len(seq_record.seq), CDS_count )
+        Record_summary[seq_name]= (len(seq_record.seq))
 
     return Record_summary
 
@@ -98,7 +98,7 @@ for Line in IN:
 
         for col in range(len(Line_bits)):
             if col == 3:
-                Header=str(Line_bits[col]) + "\tGenome_size\tGene_count\t"
+                Header=str(Line_bits[3]) + "\tGenome_size\tGene_count\t"
                 OUT.write(Header)
             else:
                 Header=str(Line_bits[col]) + "\t"
@@ -115,25 +115,25 @@ for Line in IN:
             # If there is only one refseq genome, use its data
            for col in range(len(Line_bits)):
                if col == 3:
-                   Header=str(Line_bits[col]) + "\t" + str(Virus_data[Line_bits[3]][0]) +\
-                        "\t" + str(Virus_data[Line_bits[3]][1]) + "\t"
+                   Header=str(Line_bits[3]) + "\t" + str(Virus_data[Line_bits[3]][0]) + "\t"
+                        #str(Virus_data[Line_bits[3]][1]) + "\t"
                    OUT.write(Header)
                else:
                    Header=str(Line_bits[col]) + "\t"
                    OUT.write(Header)
-            OUT.write("\n")
+           OUT.write("\n")
 
         else:
             # If there are more than one refseq genomes, need to average the data.
             Genome_size=[]
-            Gene_count=[]
+            #Gene_count=[]
             for genome in refseq_id:
-                Genome_size.append(Virus_data[genome][0])
-                Gene_count.append(Virus_data[genome][1])
+                Genome_size.append(Virus_data[genome])
+                #Gene_count.append(Virus_data[genome][1])
 
             for col in range(len(Line_bits)):
                 if col == 3:
-                    Header=str(Line_bits[col]) + "\t" + str(max(Genome_size)) + "\t" + str(max(Gene_count)) + "\t"
+                    Header=str(Line_bits[col]) + "\t" + str(max(Genome_size)) + "\t"
                     OUT.write(Header)
                 else:
                     Header=str(Line_bits[col]) + "\t"
