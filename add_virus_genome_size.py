@@ -113,13 +113,13 @@ for Line in IN:
         
         if len(refseq_id) == 1:
             # If there is only one refseq genome, use its data
-           for col in range(len(Line_bits)): 
-            if col == 3:
-                Header=str(Line_bits[col]) + "\t" + str(Virus_data[Line_bits[3]][0]) +\
-                    "\t" + str(Virus_data[Line_bits[3]][1]) + "\t"
-                OUT.write(Header)
-            else:
-                Header=str(Line_bits[col]) + "\t"
+           for col in range(len(Line_bits)):
+               if col == 3:
+                   Header=str(Line_bits[col]) + "\t" + str(Virus_data[Line_bits[3]][0]) +\
+                        "\t" + str(Virus_data[Line_bits[3]][1]) + "\t"
+                    OUT.write(Header)
+                else:
+                    Header=str(Line_bits[col]) + "\t"
                 OUT.write(Header)
             OUT.write("\n")
            
