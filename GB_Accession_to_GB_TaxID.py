@@ -55,8 +55,10 @@ count=0
 for Line in IN:
     if count == 0:
         #skip header row
+        count+=1
         continue
     else:
+        count+=1
         Accession=Line.strip('\n')
 
         for i in range(3, 0, -1):
