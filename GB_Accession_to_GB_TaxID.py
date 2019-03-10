@@ -53,6 +53,8 @@ except:
 
 count=0
 
+TaxIDdict={} # Setup dictionary to hold Accession: TaxonID info
+
 for Line in IN:
     if count == 0:
         #skip header row
@@ -61,24 +63,31 @@ for Line in IN:
     else:
         count+=1
         Accession=Line.strip('\n')
-
-        for i in range(3, 0, -1):
-            try:
-                GBSeq = Entrez.esearch(db="genome", term=Accession ) #Get the sequence
-            except:
-                if i > 0:
-                    print('Failed to connect. Retrying')
-                    time.sleep(5) #Wait 5 seconds and try again.
-                else:
-                    print("Can't download data for %s" %(Accession))
-                    break
-
-        Record= Entrez.read(GBSeq)
-        print(Record["IdList"])
         
-        if int(Record["Count"]) > 1:
-            print ("%s had %d records in GenBank" %(Accession, int(Record["Count"])))
-        elif int(Record["Count"]) > 0:
-            OUT.write(Record["IdList"][0] + "\n")
+        if Accession in TaxIDdict:
+            # We've already looked up this Accession, just write stored value
+            OUT.write(TaxIDdict[Accession] + "\n")
+       
         else:
-            print("No data for %s" %(Accession))
+            for i in range(3, 0, -1):
+                try:
+                    GBSeq = Entrez.esearch(db="genome", term=Accession ) #Get the sequence
+                except:
+                    if i > 0:
+                        print('Failed to connect. Retrying')
+                        time.sleep(5) #Wait 5 seconds and try again.
+                    else:
+                        print("Can't download data for %s" %(Accession))
+                        break
+
+            Record= Entrez.read(GBSeq)
+            print(Record["IdList"])
+
+            if int(Record["Count"]) > 1:
+                print ("%s had %d records in GenBank" %(Accession, int(Record["Count"])))
+            elif int(Record["Count"]) > 0:
+                TaxIDdict[Accession]=Record["IdList"][0] # Add to TaxIDdict
+                OUT.write(Record["IdList"][0] + "\n")
+
+            else:
+                print("No data for %s" %(Accession))
