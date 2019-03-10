@@ -78,4 +78,4 @@ for Line in IN:
                 print ("%s had %d records in GenBank" %(Accession, int(Record["Count"])))
             for id in Record["IdList"]:
                 TaxRecord= Entrez.esearch(db='taxonomy', term=id)
-                    OUT.write(Accession + "\t" + TaxRecord + "\n")
+                OUT.write(Accession + "\t" + TaxRecord + "\n")
