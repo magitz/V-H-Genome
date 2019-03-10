@@ -70,15 +70,13 @@ for Line in IN:
                     print('Failed to connect. Retrying')
                     time.sleep(5) #Wait 5 seconds and try again.
                 else:
-                    print("Can't download data for %s" %(Organism))
+                    print("Can't download data for %s" %(Accession))
                     break
 
             Record= Entrez.read(GBSeq)
         
-            if int(Record["Count"]) > 0:
+            if int(Record["Count"]) > 1:
                 print ("%s had %d records in GenBank" %(Accession, int(Record["Count"])))
-            for id in Record["IdList"]:
-                GBSeq = Entrez.efetch(db="taxonomy", rettype="gb", retmode="text", id=id) #Get the sequence
-                for Sequence in SeqIO.parse(GBSeq, "gb"):			#Parse though each
-                    # Print some summary info about the sequence.
-                    print (Sequence.id, Sequence.description[:50] )
+            elif int(Record["Count"]) > 0:
+		
+			OUT.write(Record["IdList"][0] + "\n")
