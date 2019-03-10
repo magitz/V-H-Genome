@@ -34,7 +34,7 @@ args = parser.parse_args()
 
 infile = args.i
 Entrez.email = args.e #sets the email for Entrez.
-OutputFolder= args.o
+OutFile= args.o
 
 
     
