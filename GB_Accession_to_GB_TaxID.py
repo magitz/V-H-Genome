@@ -50,23 +50,29 @@ except:
     print ("Can't open file: %s" %(OutFile))
     sys.exit()
 
+count=0
 
 for Line in IN:
-    Accession=Line.strip('\n')
+    if count == 0:
+        #skip header row
+        continue
+    else:
+        Accession=Line.strip('\n')
 
-    for i in range(3, 0, -1):
-        try:
-            GBSeq = Entrez.esearch(db="genome", term=Accession ) #Get the sequence
-        except:
-            if i > 0:
-                print('Failed to connect. Retrying')
-                time.sleep(5) #Wait 5 seconds and try again.
-            else:
-                print("Can't download data for %s" %(Organism))
-                break
+        for i in range(3, 0, -1):
+            try:
+                GBSeq = Entrez.esearch(db="genome", term=Accession ) #Get the sequence
+            except:
+                if i > 0:
+                    print('Failed to connect. Retrying')
+                    time.sleep(5) #Wait 5 seconds and try again.
+                else:
+                    print("Can't download data for %s" %(Organism))
+                    break
 
-        Record= Entrez.read(GBSeq)
-	
-        if int(Record["Count"]) > 0:
-            print ("%s had %d records in GenBank" %(Accession, int(Record["Count"])))
-        OUT.write(Accession + "\t" + Record.taxonomy + "\n")
+            Record= Entrez.read(GBSeq)
+        
+            if int(Record["Count"]) > 0:
+                print ("%s had %d records in GenBank" %(Accession, int(Record["Count"])))
+            for id in Record[IdList]:
+                OUT.write(Accession + "\t" + Record.taxonomy + "\n")
