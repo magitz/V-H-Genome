@@ -76,5 +76,5 @@ for Line in IN:
         
             if int(Record["Count"]) > 0:
                 print ("%s had %d records in GenBank" %(Accession, int(Record["Count"])))
-            for id in Record[IdList]:
+            for id in Record["IdList"]:
                 OUT.write(Accession + "\t" + Record.taxonomy + "\n")
