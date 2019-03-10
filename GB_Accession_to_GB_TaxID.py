@@ -80,4 +80,4 @@ for Line in IN:
                 GBSeq = Entrez.efetch(db="taxonomy", rettype="gb", retmode="text", id=id) #Get the sequence
                 for Sequence in SeqIO.parse(GBSeq, "gb"):			#Parse though each
                     # Print some summary info about the sequence.
-                    print Sequence.id, Sequence.description[:50] + "..."
+                    print (Sequence.id, Sequence.description[:50] )
