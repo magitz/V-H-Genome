@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from Bio import Entrez
+from Bio import SeqIO
 import os, sys
 import argparse
 import time
