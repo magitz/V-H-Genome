@@ -74,11 +74,11 @@ for Line in IN:
                     break
 
             Record= Entrez.read(GBSeq)
-        
+            print(Record["IdList"][0])
+            
             if int(Record["Count"]) > 1:
                 print ("%s had %d records in GenBank" %(Accession, int(Record["Count"])))
             elif int(Record["Count"]) > 0:
                 OUT.write(Record["IdList"][0] + "\n")
             else:
                 print("No data for %s" %(Accession))
-                
