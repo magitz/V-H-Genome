@@ -84,6 +84,13 @@ for Line in IN:
                 print(Sequence.annotations['source'])
                 for feature in Sequence.features:
                     if feature.type=='source':
-                        print(feature.qualifiers.get("db_xref"))
-                        
+                        try: 
+                            OUT.write(feature.qualifiers.get("db_xref")[0])
+                            OUT.write( "\n")
+                            AccessionDict[Accession]=feature.qualifiers.get("db_xref")[0]
+
+                        except:
+                            for item in feature.qualifiers.get("db_xref"):
+                                OUT.write("%s\t" %(item))
+                            AccessionDict[Accession]=feature.qualifiers.get("db_xref")
 
