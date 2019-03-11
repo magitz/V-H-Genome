@@ -84,6 +84,6 @@ for Line in IN:
                 print(Sequence.annotations['source'])
                 for feature in Sequence.features:
                     if feature.type=='source':
-                        OUT.write(feature.type, feature.qualifiers.get("db_xref"))
+                        OUT.write(feature.qualifiers.get("db_xref"))
                         OUT.write( "\n")
 
